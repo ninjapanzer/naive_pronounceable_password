@@ -20,6 +20,6 @@ class PronounceablePassword
                         .reverse
                         .slice(0, 2)
                         .sample
-    best_match.first.first.split("").last
+    best_match.first.first.chars.last
   end
 end

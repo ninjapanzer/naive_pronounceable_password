@@ -9,7 +9,7 @@ class LetterProbability
     file_source = 'data/noun.pnz'
     File.open(file_source).each do |line|
       max_length = line.length
-      line.split("").each_with_index do |c, i|
+      line.chars.each_with_index do |c, i|
         break if i+1 > max_length
         letter_pair = "#{c}#{line[i+1]}"
         probability = @probability_hash.fetch(letter_pair, 0)
