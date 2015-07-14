@@ -10,7 +10,7 @@ class LetterProbability
     File.open(file_source).each do |line|
       max_length = line.length
       line.chars.each_with_index do |c, i|
-        break if i+1 > max_length
+        break if line[i+1] == "\n" 
         letter_pair = "#{c}#{line[i+1]}"
         probability = @probability_hash.fetch(letter_pair, 0)
         probability += 1
