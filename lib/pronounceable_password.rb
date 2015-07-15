@@ -1,13 +1,20 @@
-require_relative './letter_probability'
+require 'csv'
 
 class PronounceablePassword
 
   LETTERS = %w(a b c d e f g h i j k l m n o p q r s t u v w x y z)
 
-  def initialize
-    prob = LetterProbability.new
-    prob.load_dictionary
-    @prob_hash = prob.probability_hash
+  def initialize(probability_corpus)
+    @probability_corpus = probability_corpus
+    @prob_hash = read_probabilities
+  end
+
+  def read_probabilities
+    probability = {}
+    CSV.foreach(@probability_corpus, :headers => true, :col_sep => ',') do |row|
+      probability[row[0].to_s] = row[1].to_i
+    end
+    probability
   end
 
   def best_next_letter(letter)

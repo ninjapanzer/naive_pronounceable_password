@@ -18,5 +18,15 @@ class LetterProbability
       end
     end
     IO.write('data/probability.pnz', @probability_hash)
+    write_csv
+  end
+
+  def write_csv
+    require 'csv'
+    CSV.open("data/probability.csv", "wb",
+      :write_headers=> true,
+      :headers => ["letter pair", "count"]) do |csv|
+        probability_hash.map {|h| csv << h.to_a}
+      end
   end
 end
