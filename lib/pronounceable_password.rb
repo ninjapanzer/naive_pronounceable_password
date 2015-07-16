@@ -6,27 +6,36 @@ class PronounceablePassword
 
   def initialize(probability_corpus)
     @probability_corpus = probability_corpus
-    @prob_hash = read_probabilities
+    @probability = {}
   end
 
   def read_probabilities
-    probability = {}
     CSV.foreach(@probability_corpus, :headers => true, :col_sep => ',') do |row|
-      probability[row[0].to_s] = row[1].to_i
+      @probability[row[0].to_s] = row[1].to_i
     end
-    probability
+    @probability
   end
 
-  def best_next_letter(letter)
+  def possible_next_letters(letter)
     matches = LETTERS.map do |l|
-      prob = @prob_hash.fetch("#{letter}#{l}", 0)
+      prob = @probability.fetch("#{letter}#{l}", 0)
       {"#{letter}#{l}" => prob}
     end
-    best_match = matches.sort_by{ |x| x.first.last }
-                        .reject{ |x| x.first.last < 1 }
-                        .reverse
-                        .slice(0, 2)
-                        .sample
-    best_match.first.first.chars.last
+    possible_next_letters = matches.reject{ |x| x.first.last < 1 }
+                                    .sort_by{ |x| x.first.last }
+                                    .reverse!
+    possible_next_letters
+  end
+
+  def most_common_next_letter(letter)
+    first_probability = possible_next_letters(letter).first
+    first_probability_chars = first_probability.keys.first.chars
+
+    first_probability_chars.last
+  end
+
+  def common_next_letter(letter, sample_limit = 2)
+    next_letters = possible_next_letters(letter).slice(0, sample_limit).sample
+    next_letters.first.first.chars.last
   end
 end
