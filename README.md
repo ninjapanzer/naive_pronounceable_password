@@ -10,3 +10,13 @@ To produce a pronounceable password you need to know the likely hood that a lett
 Because "THERE CAN BE ONLY ONE" most common letter many passwords of a certain length will start looking the same. We can apply a bias so there is greater variance with generated passwords.
 
 Also we could inprove our algorithm to use a 2 letter look ahead method or a 1 behind and 1 head strategy to build even more realistic words.
+
+
+#### Discussion
+
+- is it like encryption
+- is it secure
+- uses (determine if a password is good password) providing human friendly passwords
+- how to make it more efficient
+  - selecting the next letter subset
+  - testing efficency
