@@ -4,6 +4,8 @@ A passphrase that you can communicate and more likely remember because it follow
 
 I have given you a dataset of the probability of letter pairs in `data/probability.csv` I derived this from the `data/noun.pnz` which is the nouns from the WordNet Dictionary.
 
+As you can review in the driver `app.rb` we will construct our pronounceable passwords by finding the next letter based upon the last letter of the current password until we hit the password size limit. Something like `a -> b -> s -> s -> t -> e` or `absste`
+
 ##### You will use this to write 4 methods of the class PronounceablePassword
 - `#read_probabilities` which will read the provided csv into a hash with the expectation that **letter pairs** are the keys and the **count** is the value
 - `#possible_next_letters/1` which will return the set of probable letters based on the letter passed in as the first argument. eg. possible_next_letters(a) => [{aa=> 10}, {ab}=> 3}...] in decending order by the count.
@@ -14,8 +16,13 @@ I have given you a dataset of the probability of letter pairs in `data/probabili
 - Efficiency of searching for the `#possible_next_letters/1`
 - Test efficiency
 - How could be improve the dataset we use?
+- How can we rewrite the driver without a while loop
 
 ##### Givens
 - Specs
 - Driver `app.rb`
 - Dataset `data/probability.csv`
+
+##### Homework
+- revise the driver to not use while loops
+- refactor how we read the letter and count data and update only the specs associated with the change of data format
